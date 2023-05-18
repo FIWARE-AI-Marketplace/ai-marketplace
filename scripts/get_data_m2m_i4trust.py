@@ -14,7 +14,7 @@ from requests.exceptions import HTTPError
 import uuid
 import time
 
-ENTITY_TYPE = "DUMMY"
+ENTITY_TYPE = "CarStatusMonitoring"
 
 KEY_FILE = "../certs/autosupplier.key.pem"
 CERT_FILE = "../certs/autosupplier.ca-chain.cert.pem"
@@ -193,10 +193,10 @@ def main():
         print("Create entity of type " + ENTITY_TYPE)
         print("Sending request: POST " + target_url)
         body = {
-            "id": "urn:ngsi-ld:DUMMY:ID003",
+            "id": "urn:ngsi-ld:CarStatusMonitoring:ID003",
             "param1": "val1",
             "param2": "val2",
-            "type": "DUMMY"
+            "type": "CarStatusMonitoring"
         }
         headers = {
             'Authorization': 'Bearer ' + access_token,
