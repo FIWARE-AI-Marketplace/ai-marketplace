@@ -1,7 +1,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: marketplace-create-offering-i4t-cm
+  name: marketplace-create-offering-ids-cm
   annotations:
     "helm.sh/hook": post-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
@@ -9,18 +9,15 @@ metadata:
 data:
   entrypoint.sh: |-
     pip3 install requests pymongo
-    echo "Creating offering for i4Trust..."
-
-    {{ if .Values.initData.i4trust.uploadImage -}}
+    echo "Creating offering for IDS..."
+    {{ if .Values.initData.ids.uploadImage -}}
     # Create dir for download of offering images
     mkdir -p /tmp/offering
     
     {{- end }}
-
     # Create offering   
     python /scripts/create.py
-
-    {{ if .Values.initData.i4trust.uploadImage -}}
+    {{ if .Values.initData.ids.uploadImage -}}
     # Create dir in pod for uploading of offering images
     echo "============="
     echo "Uploading image for offering"
@@ -33,12 +30,11 @@ data:
     OPERATORID=`cat /tmp/offering/operator.txt`
     echo "Create asset media directory for service provider"
     kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- mkdir -p /opt/business-ecosystem-charging-backend/src/media/assets/${OPERATORID}
-
     # Download and copy image for offering
     echo "Download and copy image for basic offering"
     cd /tmp/offering
-    wget {{ .Values.initData.i4trust.imagePath }} -O /tmp/offering/{{ .Values.initData.i4trust.imageFilename }}
-    kubectl -n $TARGET_NAMESPACE -c business-api-ecosystem-biz-ecosystem-charging-backend cp /tmp/offering/{{ .Values.initData.i4trust.imageFilename }} $POD_NAME:/opt/business-ecosystem-charging-backend/src/media/assets/${OPERATORID}/.
+    wget {{ .Values.initData.ids.imagePath }} -O /tmp/offering/{{ .Values.initData.ids.imageFilename }}
+    kubectl -n $TARGET_NAMESPACE -c business-api-ecosystem-biz-ecosystem-charging-backend cp /tmp/offering/{{ .Values.initData.ids.imageFilename }} $POD_NAME:/opt/business-ecosystem-charging-backend/src/media/assets/${OPERATORID}/.
     
     {{- end }}
     
@@ -48,7 +44,6 @@ data:
     from pymongo import MongoClient
     from bson import ObjectId
     import sys
-
     OPERATOR_OUT_FILE = "/tmp/offering/operator.txt"
     
     def main():
@@ -57,20 +52,19 @@ data:
       LP_INTERNAL_HOST = {{ .Values.initData.lpHrefInternal | quote }}
       LP_EXTERNAL_HOST = {{ .Values.initData.lpHref | quote }}
       LP_EXTERNAL_HOST = LP_EXTERNAL_HOST+":443"
-      SERVICE_ENDPOINT = {{ .Values.initData.i4trust.serviceEndpoint | quote }}
-      AR_ENDPOINT = {{ .Values.initData.i4trust.arEndpoint | quote }}
+      SERVICE_ENDPOINT = {{ .Values.initData.ids.serviceEndpoint | quote }}
+      AR_ENDPOINT = {{ .Values.initData.ids.arEndpoint | quote }}
       OPERATOR_USER = "provider-operator"
       PROVIDER_EORI = "EU.EORI.DEHELLA"
       PLUGIN_ID = "ngsi-ld-data-service"
       ASSET_TYPE = "NGSI-LD Data Service"
       CATALOG_NAME = "Car Diagnosis"
-      OFFER_IMG = {{ .Values.initData.i4trust.imageFilename | quote }}
+      OFFER_IMG = {{ .Values.initData.ids.imageFilename | quote }}
       MONGODB_HOST = "mongodb"
       MONGODB_USER = "root"
       MONGODB_PW = "dbPassword"
       MONGODB_PORT = "27017"
       MONGODB_DB = "charging_db"
-
       # Login
       login_data = {
         'name': "admin@test.com",
@@ -87,7 +81,6 @@ data:
         print(e.response.text)
         sys.exit(1)
       token = login_response.headers["X-Subject-Token"]
-
       # Get list of users and obtain user ID
       user_header = {
         'Content-Type': 'application/json',
@@ -110,7 +103,6 @@ data:
         print("Could not find user <"+OPERATOR_USER+">")
         sys.exit(2)
       print("User ID:", operator_id)
-
       # Get asset types from DB --> wstore_resourceplugin
       print("Get asset types from MongoDB")
       mongoUri = ('mongodb://%s:%s@%s:%s/%s?authSource=admin' % (MONGODB_USER, MONGODB_PW, MONGODB_HOST, MONGODB_PORT, MONGODB_DB))
@@ -123,7 +115,6 @@ data:
         sys.exit(3)
       asset_type = cur_asset_types[0]
       print(" --> Found!")
-
       # Fill wstore_organization, name=operator_id
       print("Upsert organization in MongoDB")
       col_orgs = db['wstore_organization']
@@ -144,7 +135,6 @@ data:
       organization = col_orgs.find_one({'name': operator_id})
       org_id = organization['_id']
       print(" --> Created/updated organization:", org_id)
-
       # Fill wstore_userprofile, current_org=_id param from created org
       print("Upsert user profile in MongoDB")
       col_user = db['wstore_userprofile']
@@ -159,12 +149,11 @@ data:
       user_result = col_user.update_one({ 'actor_id': OPERATOR_USER }, { '$set': user_update }, upsert=True)
       user_profile = col_user.find_one({'actor_id': OPERATOR_USER})
       print(" --> Created/update user profile:", user_profile)
-
       # Simulate uploadJob --> fill wstore_resource, with provider_id = _id param from created org, get asset ID
       print("Insert resource for digital asset in MongoDB")
       col_resource = db['wstore_resource']
       resource_insert = {
-        "product_id": "DUMMY_PROD_ID",
+        "product_id": "CarStatusMonitoring_PROD_ID_IDS",
         "version": "0.1",
         "provider_id": ObjectId(org_id),
         "content_type": "fiware ngsi-ld",
@@ -181,7 +170,7 @@ data:
             "ar_token_endpoint": AR_ENDPOINT+"/token",
             "ar_policy_endpoint": AR_ENDPOINT+"/createpolicy",
             "minutes": 30,
-            "resource_type": "DUMMY",
+            "resource_type": "CarStatusMonitoring",
             "get_allowed": True,
             "get_ids": "*",
             "get_attributes": "*",
@@ -217,7 +206,6 @@ data:
       resource = col_resource.find_one({'_id': resource_result.inserted_id})
       resource_id = resource['_id']
       print(" --> Created resource:", resource_id, resource)
-
       # Simulate uploadJob of image upload --> fill wstore_resource, with provider_id = _id param from created org
       print("Insert resource for digital asset in MongoDB")
       col_resource = db['wstore_resource']
@@ -319,7 +307,7 @@ data:
                 "productSpecCharacteristicValue": [
                     {
                         "valueType": "string",
-                        "value": "DUMMY",
+                        "value": "CarStatusMonitoring",
                         "unitOfMeasure": "",
                         "valueFrom": "",
                         "valueTo": "",
@@ -374,9 +362,9 @@ data:
                 "role": "Owner"
             }
         ],
-        "name": "Car Diagnosis Product (i4Trust)",
+        "name": "Car Diagnosis Product (IDS)",
         "brand": "Diagnosis Provider",
-        "description": "Car Diagnosis data service product"
+        "description": "Car Diagnosis data service product, delivered via IDS data space and AI Marketplace IDS FIWARE TRUE Connector, no individual IDS Connector needed!"
       }
       print("Create productSpecification and get ID")
       spec_response = requests.post(APIS_HOST+'/DSProductCatalog/api/catalogManagement/v2/productSpecification', json=spec_data, headers=spec_header)
@@ -392,13 +380,10 @@ data:
       spec_href = spec_response.json()['href']
       print(" --> Created! productSpecification ID:", spec_id)
         
-
       # Update product ID in wstore_resource
       print("Update product_id in resource in MongoDB")
       col_resource.update_one({'_id': resource_id}, { '$set': {'product_id': spec_id} })
       print(" --> Done!")
-
-
       # Get catalog ID
       print("Getting catalog ID")
       cat_response = requests.get(APIS_HOST+'/DSProductCatalog/api/catalogManagement/v2/catalog')
@@ -424,10 +409,10 @@ data:
       offering_data = {
         "bundledProductOffering": [],
         "category": [],
-        "description": "Car Diagnosis data service",
+        "description": "Car Diagnosis data service offer, delivered via IDS data space and AI Marketplace IDS FIWARE TRUE Connector, no individual IDS Connector needed!",
         "isBundle": False,
         "lifecycleStatus": "Launched",
-        "name": "Car Diagnosis Service (i4Trust)",
+        "name": "Car Diagnosis Service (IDS)",
         "place": [],
         "productOfferingPrice": [],
         "validFor": {
@@ -471,7 +456,6 @@ data:
       offering_href = offering_response.json()['href']
       print(" --> Created! productOffering ID:", offering_id)
     
-
       # Fill wstore_offering, href from productSpec
       print("Insert offering in MongoDB")
       col_offering = db['wstore_offering']
@@ -479,7 +463,7 @@ data:
         "off_id": str(offering_id),
         "href": offering_href,
         "owner_organization_id": ObjectId(org_id),
-        "name": "Car Diagnosis service",
+        "name": "Car Diagnosis Service (IDS)",
         "version": "1.0",
         "description": "",
         "is_digital": True,
@@ -489,10 +473,7 @@ data:
       }
       offering_result = col_offering.insert_one(offering_insert)
       print(" --> Created offering in DB!")
-
-
-      {{ if .Values.initData.i4trust.uploadImage -}}
-
+      {{ if .Values.initData.ids.uploadImage -}}
       # Store operator ID in file for further processing
       if operator_id:
         f = open(OPERATOR_OUT_FILE, "a")
@@ -501,8 +482,5 @@ data:
         
       {{- end }}
       
-
-
     if __name__ == "__main__":
       main()
-

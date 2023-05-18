@@ -647,15 +647,17 @@ initData:
   ## Reloading of indexes after creation of objects
   indexesEnabled: true
   ## href base path of LP
-  lpHref: https://marketplace-biz-ecosystem-logic-proxy-0-kim-main.apps.fiware.fiware.dev
+  lpHref: https://bae-lp.kim-main.fiware.dev
+  ## internal href base path
+  lpHrefInternal: http://marketplace-biz-ecosystem-logic-proxy.kim-main.svc.cluster.local:8004
   ## Target namespace for init data
   targetNamespace: ai-marketplace
+
   ## Creation of i4Trust offering
+ 
   i4trust:
     ## Creation of i4trust offering enabled
-    enabled: True
-    ## internal href base path
-    lpHrefInternal: http://marketplace-biz-ecosystem-logic-proxy.kim-main.svc.cluster.local:8004
+    enabled: true
     ## Enpoint of data service (Kong PEP endpoint)
     serviceEndpoint: https://hella-kong-kong-kim-main.apps.fiware.fiware.dev/diagnosis-i4trust/ngsi-ld/v1
     ## Endpoint of provider AR (activation service endpoint)
@@ -663,9 +665,36 @@ initData:
     # Upload image for offering
     uploadImage: true
     # Path to offering image
-    imagePath: "https://github.com/FIWARE-AI-Marketplace/ai-marketplace/raw/main/doc/img/Offering_Image.png"
+    imagePath: "https://github.com/FIWARE-AI-Marketplace/ai-marketplace/raw/main/doc/img/Offering_Image_i4Trust.png"
     # Filename of offering image
-    imageFilename: "CarDiagnosis__Offering_Image.png"
+    imageFilename: "CarDiagnosis__Offering_Image_i4Trust.png"
 
-    
+  ids:
+    ## Creation of ids offering enabled
+    enabled: true
+    ## XXX Enpoint of data service (Kong PEP endpoint)
+    serviceEndpoint: https://hella-kong-kong-kim-main.apps.fiware.fiware.dev/diagnosis-i4trust/ngsi-ld/v1
+    ## XXX Endpoint of provider AR (activation service endpoint)
+    arEndpoint: https://hella-as-activation-service-kim-main.apps.fiware.fiware.dev
+    # Upload image for offering
+    uploadImage: true
+    # Path to offering image IDS
+    imagePath: "https://github.com/FIWARE-AI-Marketplace/ai-marketplace/raw/main/doc/img/Offering_Image_IDS.png"
+    # Filename of offering image IDS
+    imageFilename: "CarDiagnosis_Offering_Image_IDS.png"
+
+  json:
+    ## Creation of i4trust offering enabled
+    enabled: true
+    ## XXX Enpoint of data service (Kong PEP endpoint)
+    serviceEndpoint: https://hella-kong-kong-kim-poc.apps.fiware.fiware.dev/diagnosis-test/ngsi-ld/v1/entities?type=CarStatusMonitoring
+    ## XXX Endpoint of provider AR (activation service endpoint)
+    arEndpoint: https://hella-as-activation-service-kim-main.apps.fiware.fiware.dev
+    # Upload image for offering
+    uploadImage: true
+    # Path to offering image JSON
+    imagePath: "https://github.com/FIWARE-AI-Marketplace/ai-marketplace/raw/main/doc/img/Offering_Image_JSON.png"
+    # Filename of offering image JSON
+    imageFilename: "CarDiagnosis_Offering_Image_JSON.png"
+
     
