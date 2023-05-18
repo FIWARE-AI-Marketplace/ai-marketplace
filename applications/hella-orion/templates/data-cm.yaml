@@ -5,8 +5,8 @@ metadata:
 data:
   dummy001.json: |
     {
-      "id": "urn:ngsi-ld:DUMMY:ID001",
-      "type": "DUMMY",
+      "id": "urn:ngsi-ld:CarStatusMonitoring:ID001",
+      "type": "CarStatusMonitoring",
       "param1": {
         "type": "Property",
         "value": "val1"
@@ -21,8 +21,8 @@ data:
     }
   dummy002.json: |
     {
-      "id": "urn:ngsi-ld:DUMMY:ID002",
-      "type": "DUMMY",
+      "id": "urn:ngsi-ld:CarStatusMonitoring:ID002",
+      "type": "CarStatusMonitoring",
       "param1": {
         "type": "Property",
         "value": "val1"
