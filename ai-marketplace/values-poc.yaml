@@ -105,7 +105,8 @@ applications:
                 certificate:
                   issuer:
                     kind: ClusterIssuer
-                    name: letsencrypt-aws-prod                        
+                    name: self-signed                        
+                    # name: letsencrypt-aws-prod                        
 
   - name: ishare-satellite
     enabled: true

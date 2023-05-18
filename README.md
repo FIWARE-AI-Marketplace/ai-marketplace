@@ -27,17 +27,17 @@ repository ([also check this manual](https://github.com/FIWARE-Ops/marinera/blob
 * `OPENSHIFT_SERVER`: Server URL of the OpenShift cluster
 * `OPENSHIFT_TOKEN`: Token from an OpenShift service account with sufficient permissions for creation/deletion of projects and applications, role assignments and deployments via Helm charts (e.g., with `cluster-admin` role) 
 
-In order to deploy all components, simply create a branch which is named `poc`. 
-The GitHub action will deploy all components to the namespace `kim-poc`. 
+In order to deploy all components, simply create a branch which is named `poc-*`. 
+The GitHub action will deploy all components to the namespace `kim-poc-*`. 
 
 Routes for externally exposed services are automatically created and hostnames are set dynamically. In order to 
 retrieve the created hostnames, one can run, e.g., 
 ```shell
-kubectl -n kim-poc get routes
+kubectl -n kim-poc-* get routes
 ```
 or check in the OpenShift console or in ArgoCD.
 
-For the marketplace, the branch was called `poc`, this gives you 
+For the marketplace, the branch was called `poc-*`, this gives you 
 ```shell
 NAME                                      HOST/PORT                                                                PATH   SERVICES                                PORT    TERMINATION     WILDCARD
 marketplace-biz-ecosystem-logic-proxy-0   marketplace-biz-ecosystem-logic-proxy-0-kim-poc.apps.fiware.fiware.dev          marketplace-biz-ecosystem-logic-proxy   <all>   edge/Redirect   None
@@ -47,7 +47,7 @@ The marketplace logic proxy would be available under the URL: `https://marketpla
 
 ### Uninstall
 
-For removing all components and deleting the applications and namespace, simply remove the branch `poc`.
+For removing all components and deleting the applications and namespace, simply remove the branch `poc-*`.
 
 
 
@@ -260,7 +260,7 @@ Usage:
 ```shell
 python scripts/get_data_m2m_i4trust.py <NAMESPACE> <PARTY> <OPERATION>
 ```
-where `<NAMESPACE>` denotes the mandatory parameter of the deployed namespace (e.g., `kim-poc`), 
+where `<NAMESPACE>` denotes the mandatory parameter of the deployed namespace (e.g., `kim-poc-*`), 
 `<PARTY>` is the optional parameter of the consuming party (default: `autosupplier`, other options: `cardealer`) and 
 `<OPERATION>` is the optional parameter of the type of the operation (default: `GET`, other options: `POST`).
 
