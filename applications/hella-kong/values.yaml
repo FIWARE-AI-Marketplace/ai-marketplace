@@ -1,7 +1,7 @@
 kong:
   image:
     repository: quay.io/fiware/kong
-    tag: "0.3.3"
+    tag: "0.5.3"
     #pullPolicy: Always
     pullPolicy: IfNotPresent
 
@@ -26,7 +26,17 @@ kong:
     nginx_proxy_large_client_header_buffers: "16 128k"
     nginx_proxy_http2_max_field_size: "32k"
     nginx_proxy_http2_max_header_size: "32k"
+    plugins: bundled, pep-plugin
 
+  customEnv:
+    kong_pluginserver_names: pep-plugin
+    kong_pluginserver_pep_plugin_start_cmd: /go-plugins/pep-plugin
+    kong_pluginserver_pep_plugin_query_cmd: /go-plugins/pep-plugin -dump
+    
+  plugins:
+    goPlugins:
+      - pluginName: pep-plugin
+  
   ingressController:
     enabled: false
     installCRDs: false
