@@ -9,7 +9,7 @@ jobs:
   delete:
     if: |
       github.event.ref_type =='branch' && 
-      startswith(github.event.ref, 'poc')
+      startswith(github.event.ref, 'poc-*')
       
     runs-on: ubuntu-latest
     

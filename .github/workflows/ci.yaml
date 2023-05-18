@@ -2,7 +2,7 @@ name: Create namespace and deploy on new branch
 
 on:
   push:
-    branches:  [ poc ]
+    branches:  [ 'poc-*' ]
 
 concurrency: 
     group: ${{ github.ref }}
