@@ -1,0 +1,27 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: keyrock-app-create-1-cm
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook-weight": "1"
+data:
+  create.sh: |-
+  
+    mysql -h {{ .Values.keyrock.db.host }} -u {{ .Values.keyrock.db.user }} -p$DB_PASSWORD idm <<EOF
+    
+    INSERT IGNORE INTO oauth_client (id,name,description,secret,url,redirect_uri,image,grant_type,response_type,token_types) VALUES ({{ .Values.consumerdataapp.id | quote }},{{ .Values.consumerdataapp.name | quote }},{{ .Values.consumerdataapp.description | quote }}, "$APP_SECRET_1",{{ .Values.consumerdataapp.url | quote }},{{ .Values.consumerdataapp.redirectUrl | quote }},default,{{ .Values.consumerdataapp.grantType | quote }},{{ .Values.consumerdataapp.responseType | quote }},{{ .Values.consumerdataapp.tokenTypes | quote }});
+
+    INSERT IGNORE INTO role (id, name,oauth_client_id) VALUES ("consumerdataapp-admin","admin",{{ .Values.consumerdataapp.id | quote }});
+    INSERT IGNORE INTO role (id, name,oauth_client_id) VALUES ("consumerdataapp-customer","customer",{{ .Values.consumerdataapp.id | quote }});
+    INSERT IGNORE INTO role (id, name,oauth_client_id) VALUES ("consumerdataapp-orgAdmin","orgAdmin",{{ .Values.consumerdataapp.id | quote }});
+    INSERT IGNORE INTO role (id, name,oauth_client_id) VALUES ("consumerdataapp-seller","seller",{{ .Values.consumerdataapp.id | quote }});
+
+    INSERT IGNORE INTO role_assignment (id,oauth_client_id,role_id,user_id) VALUES (5,{{ .Values.consumerdataapp.id | quote }},"provider","admin");
+    INSERT IGNORE INTO role_assignment (id,oauth_client_id,role_id,user_id) VALUES (6,{{ .Values.consumerdataapp.id | quote }},"purchaser","admin");
+    INSERT IGNORE INTO role_assignment (id,oauth_client_id,role_id,user_id) VALUES (7,{{ .Values.consumerdataapp.id | quote }},"consumerdataapp-admin","admin");
+    INSERT IGNORE INTO role_assignment (id,oauth_client_id,role_id,user_id) VALUES (8,{{ .Values.consumerdataapp.id | quote }},"consumerdataapp-seller","admin");
+    
+    COMMIT;
+    EOF

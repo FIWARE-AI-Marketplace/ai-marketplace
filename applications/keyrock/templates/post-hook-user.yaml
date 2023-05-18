@@ -1,0 +1,26 @@
+{{- if .Values.keyrock.initScript.enabled -}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: keyrock-user-create-{{ randAlphaNum 5 | lower }}
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook-weight": "1"
+spec:
+  containers:
+    - name: keyrock-user-create
+      image: python:3
+      command:
+        - /bin/sh
+        - /scripts/entrypoint.sh
+      volumeMounts:
+        - name: scripts
+          mountPath: /scripts
+  volumes:
+    - name: scripts
+      configMap:
+        name: keyrock-create-user-cm
+  restartPolicy: Never
+
+{{- end }}

@@ -157,13 +157,3 @@ keyrock:
       value: "'self',*"
     - name: IDM_CSP_SCRIPT_SRC
       value: "'self','unsafe-inline',https://*.fiware.org,https://www.googletagmanager.com"
-
-marketplace:
-  id: marketplace-id
-  name: Marketplace
-  description: Keyrock client for the marketplace.
-  url: http://daten.kim-main.fiware.dev
-  redirectUrl: http://daten.kim-main.fiware.dev/auth/fiware/callback
-  grantType: authorization_code,refresh_token
-  responseType: code
-  tokenTypes: bearer

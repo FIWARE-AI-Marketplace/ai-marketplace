@@ -62,9 +62,39 @@ applications:
         id: 71049899-b919-4d0f-9303-e5d2fd1bbb90
         url: https://bae-lp.kim-main.fiware.dev
         redirectUrl: https://bae-lp.kim-main.fiware.dev/auth/fiware/callback
+        name: Marketplace
+        description: Keyrock client for the marketplace.
+        grantType: authorization_code,refresh_token
+        responseType: code
+        tokenTypes: bearer        
+                
+      consumerdataapp:
+        id: 71049899-b919-4d0f-9303-e5d2fd1bbb91
+        url: https://bae-lp.kim-main.fiware.dev
+        redirectUrl: https://bae-lp.kim-main.fiware.dev/auth/fiware/callback        
+        name: Consumerdataapp
+        description: Marketplace Consumerdataapp client.
+        grantType: authorization_code,refresh_token
+        responseType: code
+        tokenTypes: bearer
+        
+      user:
+        - username: "cardealer-operator"
+          email: "operator@cardealer.com"
+          password: "operator"
+        - username: "cardealer-user"
+          email: "user@cardealer.com"
+          password: "user"
+        - username: "autosupplier-operator"
+          email: "operator@autosupplier.com"
+          password: "operator"
+        - username: "autosupplier-user"
+          email: "user@autosupplier.com"
+          password: "user"
+                
       keyrock:
         host: https://keyrock-0-kim-main.apps.fiware.fiware.dev
-        
+
   - name: marketplace
     enabled: true
     source_path: applications/marketplace
@@ -82,8 +112,8 @@ applications:
           lpHrefInternal: http://marketplace-biz-ecosystem-logic-proxy.kim-main.svc.cluster.local:8004
           serviceEndpoint: https://hella-kong-kong-kim-main.apps.fiware.fiware.dev/diagnosis-i4trust/ngsi-ld/v1
           arEndpoint: https://hella-as-activation-service-kim-main.apps.fiware.fiware.dev
-          imagePath: "https://github.com/FIWARE-AI-Marketplace/ai-marketplace/raw/main/doc/img/Offering_Image.png"
-          imageFilename: "CarDiagnosis__Offering_Image.png"
+          imagePath: "https://github.com/FIWARE-AI-Marketplace/ai-marketplace/raw/main/doc/img/Offering_Image_i4Trust.png"
+          imageFilename: "CarDiagnosis__Offering_Image_i4Trust.png"
       business-api-ecosystem:
         oauth:
           server: https://keyrock-0-kim-main.apps.fiware.fiware.dev

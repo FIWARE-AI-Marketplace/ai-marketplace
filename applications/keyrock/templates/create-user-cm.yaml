@@ -1,0 +1,68 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: keyrock-create-user-cm
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook-weight": "1"
+data:
+  entrypoint.sh: |-
+    pip install requests
+    echo "Creating users..."
+    python /scripts/create.py
+  create.py: |-
+    import requests
+    from requests.exceptions import HTTPError
+    import sys
+    def main():
+      KEYROCK_HOST = {{ .Values.keyrock.host | quote }}
+      
+      print(KEYROCK_HOST)
+      
+      # Login
+      login_data = {
+        'name': {{ .Values.keyrock.admin.email | quote }},
+        'password': {{ .Values.keyrock.admin.password | quote }}
+      }
+      
+      print(login_data)
+      
+      login_header = {
+        'Content-Type': 'application/json'
+      }
+      login_response = requests.post(KEYROCK_HOST+'/v1/auth/tokens', json=login_data, headers=login_header)
+      try:
+        login_response.raise_for_status()
+      except HTTPError as e:
+        print(e.response.text)
+        sys.exit(1)
+      token = login_response.headers["X-Subject-Token"]
+      
+      print(token)
+      
+      # Create user
+      user_header = {
+        'Content-Type': 'application/json',
+        'X-Auth-token': token
+      }
+      
+      {{- range $u := .Values.user }}
+      user_data = {
+        'user': {
+          'id': {{ $u.username | quote }},
+          'username': {{ $u.username | quote }},
+          'email': {{ $u.email | quote }},
+          'password': {{ $u.password | quote }}
+        }
+      }
+      user_response = requests.post(KEYROCK_HOST+'/v1/users', json=user_data, headers=user_header)
+      try:
+        user_response.raise_for_status()
+      except HTTPError as e:
+        print(e.response.text)
+        sys.exit(1)
+      
+      {{- end }}
+    if __name__ == "__main__":
+      main()

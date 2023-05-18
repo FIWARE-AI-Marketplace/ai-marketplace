@@ -1,0 +1,30 @@
+{{- if .Values.keyrock.initScript.enabled -}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: keyrock-app-create-1-{{ randAlphaNum 5 | lower }}
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook-weight": "1"
+spec:
+  containers:
+    - name: app-create
+      image: mysql:5.7
+      command: 
+        - /bin/sh
+        - /scripts/create.sh
+      volumeMounts:
+        - name: scripts
+          mountPath: /scripts
+      env:
+        - name: DB_PASSWORD
+          value: dbPassword
+        - name: APP_SECRET_1
+          value: f7e11234-b84f-4748-86e5-1234567898h8
+  volumes:
+    - name: scripts
+      configMap:
+        name: keyrock-app-create-1-cm
+  restartPolicy: Never
+{{- end }}
