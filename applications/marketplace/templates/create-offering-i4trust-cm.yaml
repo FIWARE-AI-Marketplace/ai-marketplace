@@ -164,7 +164,7 @@ data:
       print("Insert resource for digital asset in MongoDB")
       col_resource = db['wstore_resource']
       resource_insert = {
-        "product_id": "DUMMY_PROD_ID",
+        "product_id": "CarStatusMonitoringTotal_PROD_ID",
         "version": "0.1",
         "provider_id": ObjectId(org_id),
         "content_type": "fiware ngsi-ld",
@@ -181,7 +181,7 @@ data:
             "ar_token_endpoint": AR_ENDPOINT+"/token",
             "ar_policy_endpoint": AR_ENDPOINT+"/createpolicy",
             "minutes": 30,
-            "resource_type": "DUMMY",
+            "resource_type": "CarStatusMonitoringTotal",
             "get_allowed": True,
             "get_ids": "*",
             "get_attributes": "*",
@@ -319,7 +319,7 @@ data:
                 "productSpecCharacteristicValue": [
                     {
                         "valueType": "string",
-                        "value": "DUMMY",
+                        "value": "CarStatusMonitoringTotal",
                         "unitOfMeasure": "",
                         "valueFrom": "",
                         "valueTo": "",
@@ -505,4 +505,3 @@ data:
 
     if __name__ == "__main__":
       main()
-

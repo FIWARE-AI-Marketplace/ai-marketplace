@@ -53,11 +53,10 @@ data:
       LP_EXTERNAL_HOST = {{ .Values.initData.lpHref | quote }}
       LP_EXTERNAL_HOST = LP_EXTERNAL_HOST+":443"
       SERVICE_ENDPOINT = {{ .Values.initData.json.serviceEndpoint | quote }}
-      AR_ENDPOINT = {{ .Values.initData.json.arEndpoint | quote }}
       OPERATOR_USER = "provider-operator"
       PROVIDER_EORI = "EU.EORI.DEHELLA"
-      PLUGIN_ID = "ngsi-ld-data-service"
-      ASSET_TYPE = "NGSI-LD Data Service"
+      PLUGIN_ID = "basic-service"
+      ASSET_TYPE = "Basic Service"
       CATALOG_NAME = "Car Diagnosis"
       OFFER_IMG = {{ .Values.initData.json.imageFilename | quote }}
       MONGODB_HOST = "mongodb"
@@ -156,50 +155,16 @@ data:
         "product_id": "CarStatusMonitoring_PROD_ID_JSON",
         "version": "0.1",
         "provider_id": ObjectId(org_id),
-        "content_type": "fiware ngsi-ld",
+        "content_type": "application/ld+json",
         "download_link": SERVICE_ENDPOINT,
         "resource_path": "",
         "old_versions": None,
         "state": "attached",
-        "resource_type": "NGSI-LD Data Service",
+        "resource_type": "Basic Service",
         "is_public": False,
         "has_terms": False,
         "bundled_assets": [ ],
         "meta_info": {
-            "ar_id": PROVIDER_EORI,
-            "ar_token_endpoint": AR_ENDPOINT+"/token",
-            "ar_policy_endpoint": AR_ENDPOINT+"/createpolicy",
-            "minutes": 30,
-            "resource_type": "CarStatusMonitoring",
-            "get_allowed": True,
-            "get_ids": "*",
-            "get_attributes": "*",
-            "patch_allowed": False,
-            "post_allowed": False,
-            "delete_allowed": False,
-            "patch_subscription_allowed": False,
-            "get_subscription_allowed": False,
-            "post_subscription_allowed": False,
-            "delete_subscription_allowed": False,
-            "notification_allowed": False,
-            "sidecar_endpoint_config_allowed": False,
-            "idp_id": PROVIDER_EORI,
-            "patch_attributes": "*",
-            "patch_ids": "*",
-            "post_attributes": "*",
-            "post_ids": "*",
-            "delete_attributes": "*",
-            "delete_ids": "*",
-            "get_subscription_attributes": "*",
-            "get_subscription_ids": "*",
-            "patch_subscription_attributes": "*",
-            "patch_subscription_ids": "*",
-            "post_subscription_attributes": "*",
-            "post_subscription_ids": "*",
-            "delete_subscription_attributes": "*",
-            "delete_subscription_ids": "*",
-            "notification_attributes": "*",
-            "notification_ids": "*"
         }
       }
       resource_result = col_resource.insert_one(resource_insert)
@@ -263,7 +228,7 @@ data:
                     {
                         "default": True,
                         "unitOfMeasure": "",
-                        "value": "FIWARE NGSI-LD",
+                        "value": "application/ld+json",
                         "valueFrom": "",
                         "valueTo": ""
                     }
@@ -296,54 +261,6 @@ data:
                         "value": str(resource_id),
                         "valueFrom": "",
                         "valueTo": ""
-                    }
-                ]
-            },
-            {
-                "name": "Entity type",
-                "description": "Entity type that would be accessed",
-                "valueType": "string",
-                "configurable": False,
-                "productSpecCharacteristicValue": [
-                    {
-                        "valueType": "string",
-                        "value": "CarStatusMonitoring",
-                        "unitOfMeasure": "",
-                        "valueFrom": "",
-                        "valueTo": "",
-                        "default": True
-                    }
-                ]
-            },
-            {
-                "name": "GET Entity Attributes Permission",
-                "description": "Entity attributes that can be read",
-                "valueType": "string",
-                "configurable": False,
-                "productSpecCharacteristicValue": [
-                    {
-                        "valueType": "string",
-                        "value": "*",
-                        "unitOfMeasure": "",
-                        "valueFrom": "",
-                        "valueTo": "",
-                        "default": True
-                    }
-                ]
-            },
-            {
-                "name": "GET Entity IDs",
-                "description": "Entity IDs that can be read",
-                "valueType": "string",
-                "configurable": False,
-                "productSpecCharacteristicValue": [
-                    {
-                        "valueType": "string",
-                        "value": "*",
-                        "unitOfMeasure": "",
-                        "valueFrom": "",
-                        "valueTo": "",
-                        "default": True
                     }
                 ]
             }
