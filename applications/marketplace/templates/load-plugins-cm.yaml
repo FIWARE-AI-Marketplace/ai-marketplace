@@ -20,16 +20,16 @@ data:
 
     echo "Loading plugins..."
 
-    echo "Loading plugin BAE..."
-    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- wget -P /opt/business-ecosystem-charging-backend/src/plugins https://github.com/i4Trust/bae-i4trust-service/releases/download/3.0.0/bae-i4trust-service_3.0.0.zip
-    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- ./manage.py loadplugin plugins/bae-i4trust-service_3.0.0.zip
-
     echo "Loading plugin File..."
     kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- ./manage.py loadplugin plugins/basic-file.zip
 
     echo "Loading plugin File..."
     kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- ./manage.py loadplugin plugins/basic-url.zip
 
+    echo "Loading plugin BAE..."
+    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- wget -P /opt/business-ecosystem-charging-backend/src/plugins https://github.com/i4Trust/bae-i4trust-service/releases/download/3.0.0/bae-i4trust-service_3.0.0.zip
+    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- ./manage.py loadplugin plugins/bae-i4trust-service_3.0.0.zip
+
     echo "Loading plugin File..."
-    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- wget -P /opt/business-ecosystem-charging-backend/src/plugins https://github.com/FIWARE-AI-Marketplace/ai-marketplace/raw/main/plugins/smartmaas-ngsi-query.zip
-    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- ./manage.py loadplugin plugins/smartmaas-ngsi-query.zip
+    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- wget -P /opt/business-ecosystem-charging-backend/src/plugins https://github.com/FIWARE-AI-Marketplace/ai-marketplace/raw/main/plugins/bae-kim-service.zip
+    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- ./manage.py loadplugin plugins/bae-kim-service.zip
