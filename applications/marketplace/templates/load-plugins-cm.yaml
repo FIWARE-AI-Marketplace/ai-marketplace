@@ -27,3 +27,11 @@ data:
     echo "Loading plugin File..."
     kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- wget -P /opt/business-ecosystem-charging-backend/src/plugins https://github.com/FIWARE-AI-Marketplace/ai-marketplace/raw/main/plugins/basic-file.zip
     kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- ./manage.py loadplugin plugins/basic-file.zip
+
+    echo "Loading plugin File..."
+    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- wget -P /opt/business-ecosystem-charging-backend/src/plugins https://github.com/FIWARE-AI-Marketplace/ai-marketplace/raw/main/plugins/basic-url.zip
+    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- ./manage.py loadplugin plugins/basic-url.zip
+
+    echo "Loading plugin File..."
+    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- wget -P /opt/business-ecosystem-charging-backend/src/plugins https://github.com/FIWARE-AI-Marketplace/ai-marketplace/raw/main/plugins/kim_idsa-query.zip
+    kubectl -n $TARGET_NAMESPACE exec -i $POD_NAME -c business-api-ecosystem-biz-ecosystem-charging-backend -- ./manage.py loadplugin plugins/kim_idsa-query.zip
