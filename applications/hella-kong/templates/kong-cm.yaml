@@ -19,20 +19,21 @@ data:
             strip_path: true
 
       - host: "hella-orion"
-        name: "hella-orion-kr"
+        name: "hella-orion-kim"
         port: 1026
         protocol: http
         routes:
-          - name: hella-orion-kr
+          - name: hella-orion-kim
             paths:
-              - /kr-test
+              - /kim
             strip_path: true
         plugins:
           - name: pep-plugin
             config:
               authorizationendpointtype: Keyrock
-              authorizationendpointaddress: https://keyrock-0-kim-main.apps.fiware.fiware.dev/user
+              authorizationendpointaddress: http://keyrock.kim-poc-01.svc.cluster.local:8080/user
               keyrockappid: 71049899-b919-4d0f-9303-e5d2fd1bbb91
+              pathprefix: /kim
             
       - host: "hella-orion"
         name: "hella-orion-i4trust"

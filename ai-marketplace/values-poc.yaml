@@ -64,9 +64,9 @@ applications:
         redirectUrl: https://bae-lp.kim-main.fiware.dev/auth/fiware/callback
         name: Marketplace
         description: Keyrock client for the marketplace.
-        grantType: authorization_code,refresh_token
+        grantType: authorization_code,refresh_token,password
         responseType: code
-        tokenTypes: bearer        
+        tokenTypes: bearer,jwt
                 
       consumerdataapp:
         id: 71049899-b919-4d0f-9303-e5d2fd1bbb91
@@ -74,9 +74,9 @@ applications:
         redirectUrl: https://bae-lp.kim-main.fiware.dev/auth/fiware/callback        
         name: Consumerdataapp
         description: Marketplace Consumerdataapp client.
-        grantType: authorization_code,refresh_token
+        grantType: authorization_code,refresh_token,password
         responseType: code
-        tokenTypes: bearer
+        tokenTypes: bearer,jwt
         
       user:
         - username: "cardealer-operator"
