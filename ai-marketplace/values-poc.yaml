@@ -79,17 +79,17 @@ applications:
         tokenTypes: bearer,jwt
         
       user:
-        - username: "cardealer-operator"
-          email: "operator@cardealer.com"
+        - username: "cardealer-operator-local"
+          email: "operator-local@cardealer.com"
           password: "operator"
-        - username: "cardealer-user"
-          email: "user@cardealer.com"
+        - username: "cardealer-user-local"
+          email: "user-local@cardealer.com"
           password: "user"
-        - username: "autosupplier-operator"
-          email: "operator@autosupplier.com"
+        - username: "autosupplier-operator-local"
+          email: "operator-local@autosupplier.com"
           password: "operator"
-        - username: "autosupplier-user"
-          email: "user@autosupplier.com"
+        - username: "autosupplier-user-local"
+          email: "user-local@autosupplier.com"
           password: "user"
                 
       keyrock:
