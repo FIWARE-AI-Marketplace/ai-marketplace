@@ -1,0 +1,36 @@
+{
+  "id": "urn:ngsi-ld:Analytics:ID999Total",
+  "type": "CarMonitoringAnalytics",
+  "durationSumLast10": {
+    "type": "Property",
+    "value": 0
+  },
+  "durationSumTotal": {
+    "type": "Property",
+    "value": 0
+  },
+  "distanceSumLast10": {
+    "type": "Property",
+    "value": 0
+  },
+  "distanceSumTotal": {
+    "type": "Property",
+    "value": 0
+  },
+  "consumptionSumLast10": {
+    "type": "Property",
+    "value": 0
+  },
+  "consumptionSumTotal": {
+    "type": "Property",
+    "value": 0
+  },
+  "avgSpeedLast10": {
+    "type": "Property",
+    "value": 0
+  },
+  "avgSpeedTotal": {
+    "type": "Property",
+    "value": 0
+  }
+}

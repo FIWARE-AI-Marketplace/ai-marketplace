@@ -290,7 +290,7 @@ data:
                     {
                         "default": True,
                         "unitOfMeasure": "",
-                        "value": "ngsi-ld/v1/entities?type=CarStatusMonitoringTotal",
+                        "value": "ngsi-ld/v1/entities/urn:ngsi-ld:Analytics:ID999Total",
                         "valueFrom": "",
                         "valueTo": ""
                     }
