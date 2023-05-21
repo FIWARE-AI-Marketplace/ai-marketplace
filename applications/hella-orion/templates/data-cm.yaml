@@ -5,34 +5,41 @@ metadata:
 data:
   dummy001.json: |
     {
-      "id": "urn:ngsi-ld:CarStatusMonitoring:ID001",
-      "type": "CarStatusMonitoring",
-      "param1": {
+      "id": "urn:ngsi-ld:Analytics:ID999Total",
+      "type": "CarMonitoringAnalytics",
+      "durationSumLast10": {
         "type": "Property",
-        "value": "val1"
+        "value": 0
       },
-      "param2": {
+      "durationSumTotal": {
         "type": "Property",
-        "value": "val2"
+        "value": 0
+      },
+      "distanceSumLast10": {
+        "type": "Property",
+        "value": 0
+      },
+      "distanceSumTotal": {
+        "type": "Property",
+        "value": 0
+      },
+      "consumptionSumLast10": {
+        "type": "Property",
+        "value": 0
+      },
+      "consumptionSumTotal": {
+        "type": "Property",
+        "value": 0
+      },
+      "avgSpeedLast10": {
+        "type": "Property",
+        "value": 0
+      },
+      "avgSpeedTotal": {
+        "type": "Property",
+        "value": 0
       },
       "@context": [
         "https://schema.lab.fiware.org/ld/context"
       ]
     }
-  dummy002.json: |
-    {
-      "id": "urn:ngsi-ld:CarStatusMonitoring:ID002",
-      "type": "CarStatusMonitoring",
-      "param1": {
-        "type": "Property",
-        "value": "val1"
-      },
-      "param2": {
-        "type": "Property",
-        "value": "val2"
-      },
-      "@context": [
-        "https://schema.lab.fiware.org/ld/context"
-      ]
-    }
-    

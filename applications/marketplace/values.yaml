@@ -673,7 +673,7 @@ initData:
     ## Creation of ids offering enabled
     enabled: true
     ## XXX Enpoint of data service (Kong PEP endpoint)
-    serviceEndpoint: https://hella-kong-kong-kim-main.apps.fiware.fiware.dev/diagnosis-i4trust/ngsi-ld/v1
+    serviceEndpoint: https://hella-kong-kong-kim-main.apps.fiware.fiware.dev/kim/ids-input/ngsi-ld/v1/entities/urn:ngsi-ld:Analytics:ID999Total
     # Upload image for offering
     uploadImage: true
     # Path to offering image IDS

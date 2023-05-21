@@ -19,8 +19,7 @@ spec:
             - sh
             - -c
             - |
-              curl -X POST ${ORION_HOST}/ngsi-ld/v1/entities --header "Content-Type: application/ld+json" -d @/data/dummy001.json &&
-              curl -X POST ${ORION_HOST}/ngsi-ld/v1/entities --header "Content-Type: application/ld+json" -d @/data/dummy002.json
+              curl -X POST ${ORION_HOST}/ngsi-ld/v1/entities --header "Content-Type: application/ld+json" -d @/data/dummy001.json
           volumeMounts:
             - name: hella-orion-init-data-volume
               mountPath: "/data"
