@@ -82,15 +82,6 @@ applications:
         - username: "cardealer-operator-local"
           email: "operator-local@cardealer.com"
           password: "operator"
-        - username: "cardealer-user-local"
-          email: "user-local@cardealer.com"
-          password: "user"
-        - username: "autosupplier-operator-local"
-          email: "operator-local@autosupplier.com"
-          password: "operator"
-        - username: "autosupplier-user-local"
-          email: "user-local@autosupplier.com"
-          password: "user"
                 
       keyrock:
         host: https://keyrock-0-kim-main.apps.fiware.fiware.dev

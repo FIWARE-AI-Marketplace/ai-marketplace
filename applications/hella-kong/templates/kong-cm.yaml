@@ -25,15 +25,15 @@ data:
         routes:
           - name: hella-orion-kim
             paths:
-              - /kim
+              - /kim/
             strip_path: true
         plugins:
           - name: pep-plugin
             config:
               authorizationendpointtype: Keyrock
-              authorizationendpointaddress: http://keyrock.kim-poc-01.svc.cluster.local:8080/user
+              authorizationendpointaddress: http://keyrock:8080/user
               keyrockappid: 71049899-b919-4d0f-9303-e5d2fd1bbb91
-              pathprefix: /kim
+              pathprefix: /kim/
             
       - host: "hella-orion"
         name: "hella-orion-i4trust"

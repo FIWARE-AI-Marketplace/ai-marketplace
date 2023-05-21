@@ -1,0 +1,24 @@
+{
+    "name": "KIM Data Service",
+    "author": "gboege",
+    "version": "0.5.0",
+    "module": "kim_service.KIMService",
+    "media_types": ["application/ld+json"],
+    "formats": ["URL"],
+    "overrides": [],
+    "pull_accounting": true,
+    "form": {
+        "method": {
+            "type": "text",
+            "label": "HTTP Method",
+            "placeholder": "GET",
+            "mandatory": true
+        },
+        "permissionresource": {
+            "type": "text",
+            "label": "Exact Pattern of permission resource",
+            "placeholder": "ngsi-ld/v1/entities?type=CarStatusMonitoringTotal",
+            "mandatory": true
+        }
+    }
+}

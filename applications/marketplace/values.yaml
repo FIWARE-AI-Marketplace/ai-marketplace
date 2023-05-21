@@ -674,8 +674,6 @@ initData:
     enabled: true
     ## XXX Enpoint of data service (Kong PEP endpoint)
     serviceEndpoint: https://hella-kong-kong-kim-main.apps.fiware.fiware.dev/diagnosis-i4trust/ngsi-ld/v1
-    ## XXX Endpoint of provider AR (activation service endpoint)
-    arEndpoint: https://hella-as-activation-service-kim-main.apps.fiware.fiware.dev
     # Upload image for offering
     uploadImage: true
     # Path to offering image IDS
@@ -688,8 +686,6 @@ initData:
     enabled: true
     ## XXX Enpoint of data service (Kong PEP endpoint)
     serviceEndpoint: https://hella-kong-kong-kim-poc.apps.fiware.fiware.dev/diagnosis-test/ngsi-ld/v1/entities?type=CarStatusMonitoring
-    ## XXX Endpoint of provider AR (activation service endpoint)
-    arEndpoint: https://hella-as-activation-service-kim-main.apps.fiware.fiware.dev
     # Upload image for offering
     uploadImage: true
     # Path to offering image JSON
