@@ -1,0 +1,88 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  labels:
+    app: "kim_datagenerator"
+  name: "kim-datagenerator"
+  namespace: "kim-poc-02"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "kim_datagenerator"
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: "RollingUpdate"
+  template:
+    metadata:
+      labels:
+        app: "kim_datagenerator"
+    spec:
+      containers:
+      - env:
+        - name: "envBasePath"
+          value: "/"
+        - name: "envReceiveRESTFromExternalRESTBasePath"
+          value: "/ids-input-external/*"
+        - name: "envReceiveRESTFromInternalRESTBasePath"
+          value: "/ids-input/*"
+        - name: "envReveiveMPPFromECCBasePath"
+          value: "/ecc-input"
+        - name: "envSendECCLocalSchemaHostPort"
+          value: "http://ecc-8887-svc.kim-poc-02.svc.cluster.local:8887"
+        - name: "envSendECCLocalBasePath"
+          value: "/incoming-data-app/multipartMessageBodyFormData"
+        - name: "envSendRestApiLocalSchemaHostPort"
+          value: "https://contextld.2019.smartmaas.services"
+        - name: "envSendRestApiLocalBasePath"
+          value: "/"
+        - name: "envIDSInfoModelVersionOutgoing"
+          value: "4.0.0"
+        - name: "envConnectorIDOutgoing"
+          value: "http://w3id.org/engrd/connector/"
+        - name: "envDebugCallExtractUrl"
+          value: "https://envjjxkl6429c.x.pipedream.net"
+        - name: "envDebugCallExtractIntercept2Active"
+          value: "true"
+        - name: "envDebugCallExtractIntercept3Active"
+          value: "true"
+        - name: "envDebugCallExtractIntercept4Active"
+          value: "true"
+        - name: "CONFIG_FILE"
+          value: "/home/ballerina/conf/ballerina.conf"
+        image: "registry.hub.docker.com/boostfiware/kim_datagenerator:0.6.0"
+        imagePullPolicy: "Always"
+        livenessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          tcpSocket:
+            port: 9091
+        name: "kim-datagenerator"
+        ports:
+        - containerPort: 9091
+          protocol: "TCP"
+        - containerPort: 9092
+          protocol: "TCP"
+        readinessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          tcpSocket:
+            port: 9091
+        volumeMounts:
+        - mountPath: "/home/ballerina/secrets-kim-datagenerator"
+          name: "secrets-kim-datagenerator-volume"
+          readOnly: true
+        - mountPath: "/home/ballerina/conf/"
+          name: "serviceftcinternalresttoecc1-ballerina-conf-config-map-volume"
+          readOnly: false
+      nodeSelector: {}
+      volumes:
+      - name: "secrets-kim-datagenerator-volume"
+        secret:
+          secretName: "secrets-kim-datagenerator"
+      - configMap:
+          name: "serviceftcinternalresttoecc1-ballerina-conf-config-map"
+        name: "serviceftcinternalresttoecc1-ballerina-conf-config-map-volume"

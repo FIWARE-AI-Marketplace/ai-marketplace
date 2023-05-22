@@ -225,3 +225,31 @@ applications:
           url: "https://ishare-satellite-kim-main.apps.fiware.fiware.dev"
           tokenEndpoint: "https://ishare-satellite-kim-main.apps.fiware.fiware.dev/token"
           partiesEndpoint: "https://ishare-satellite-kim-main.apps.fiware.fiware.dev/parties"
+          
+  - name: kim-cardatagenerator
+    enabled: true
+    source_path: applications/kim-cardatagenerator
+    source_ref: *branch
+    destination: *destination
+
+
+  - name: kim-idsconnectorapp1
+    enabled: true
+    source_path: applications/kim-idsconnectorapp1
+    source_ref: *branch
+    destination: *destination
+
+
+  - name: kim-idsconnectorapp2
+    enabled: true
+    source_path: applications/kim-idsconnectorapp2
+    source_ref: *branch
+    destination: *destination
+
+
+  - name: kim-idsconnectorapp3
+    enabled: true
+    source_path: applications/kim-idsconnectorapp3
+    source_ref: *branch
+    destination: *destination
+

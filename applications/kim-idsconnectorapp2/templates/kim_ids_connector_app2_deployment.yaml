@@ -1,0 +1,92 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  labels:
+    app: "kim_ids_connector_app2"
+  name: "kim-ids-connector-app2"
+  namespace: "kim-poc-02"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "kim_ids_connector_app2"
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: "RollingUpdate"
+  template:
+    metadata:
+      labels:
+        app: "kim_ids_connector_app2"
+    spec:
+      containers:
+      - env:
+        - name: "envBasePath"
+          value: "/"
+        - name: "envReceiveRESTFromExternalRESTBasePath"
+          value: "/ids-input-external/*"
+        - name: "envReceiveRESTFromInternalRESTBasePath"
+          value: "/ids-input/*"
+        - name: "envReveiveMPPFromECCBasePath"
+          value: "/ecc-input"
+        - name: "envSendECCLocalSchemaHostPort"
+          value: "http://ecc-8887-svc.kim-poc-02.svc.cluster.local:8887"
+        - name: "envSendECCLocalBasePath"
+          value: "/incoming-data-app/multipartMessageBodyFormData"
+        - name: "envSendRestApiLocalSchemaHostPort"
+          value: "https://contextld.2019.smartmaas.services"
+        - name: "envSendRestApiLocalBasePath"
+          value: "/"
+        - name: "envIDSInfoModelVersionOutgoing"
+          value: "4.0.0"
+        - name: "envConnectorIDOutgoing"
+          value: "http://w3id.org/engrd/connector/"
+        - name: "envDebugCallExtractUrl"
+          value: "https://envjjxkl6429c.x.pipedream.net"
+        - name: "envDebugCallExtractIntercept2Active"
+          value: "true"
+        - name: "envDebugCallExtractIntercept3Active"
+          value: "true"
+        - name: "envDebugCallExtractIntercept4Active"
+          value: "true"
+        - name: "CONFIG_FILE"
+          value: "/home/ballerina/conf/ballerina.conf"
+        image: "registry.hub.docker.com/boostfiware/kim_ids_connector_app2:0.8.0"
+        imagePullPolicy: "Always"
+        livenessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          tcpSocket:
+            port: 9091
+        name: "kim-ids-connector-app2"
+        ports:
+        - containerPort: 9091
+          protocol: "TCP"
+        - containerPort: 9092
+          protocol: "TCP"
+        - containerPort: 9096
+          protocol: "TCP"
+        - containerPort: 9099
+          protocol: "TCP"
+        readinessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          tcpSocket:
+            port: 9091
+        volumeMounts:
+        - mountPath: "/home/ballerina/secrets-kim-ids-connector-app2"
+          name: "secrets-kim-ids-connector-app2-volume"
+          readOnly: true
+        - mountPath: "/home/ballerina/conf/"
+          name: "serviceftcinternalresttoecc22-ballerina-conf-config-map-volume"
+          readOnly: false
+      nodeSelector: {}
+      volumes:
+      - name: "secrets-kim-ids-connector-app2-volume"
+        secret:
+          secretName: "secrets-kim-ids-connector-app2"
+      - configMap:
+          name: "serviceftcinternalresttoecc22-ballerina-conf-config-map"
+        name: "serviceftcinternalresttoecc22-ballerina-conf-config-map-volume"

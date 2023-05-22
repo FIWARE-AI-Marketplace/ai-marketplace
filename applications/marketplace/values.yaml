@@ -685,7 +685,7 @@ initData:
     ## Creation of i4trust offering enabled
     enabled: true
     ## XXX Enpoint of data service (Kong PEP endpoint)
-    serviceEndpoint: https://hella-kong-kong-kim-poc.apps.fiware.fiware.dev/diagnosis-test/ngsi-ld/v1/entities?type=CarStatusMonitoring
+    serviceEndpoint: https://github.com/FIWARE-AI-Marketplace/ai-marketplace/blob/main/plugins/demo.json
     # Upload image for offering
     uploadImage: true
     # Path to offering image JSON

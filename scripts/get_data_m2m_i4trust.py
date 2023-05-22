@@ -7,7 +7,7 @@
 import sys
 import os
 import re
-import jwt  # pip3 install pyjwt
+import jwt  # pip3 install pyjwt # maybe also:  pip3 install cryptography
 import json
 import requests # pip3 install requests
 from requests.exceptions import HTTPError

@@ -1,0 +1,70 @@
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  labels:
+    app: "kim_ids_connector_app3"
+  name: "kim-ids-connector-app3-ext-to-rest-svc"
+  namespace: "kim-poc-02"
+spec:
+  ports:
+  - name: "http-9091"
+    nodePort: 32393
+    port: 9091
+    protocol: "TCP"
+    targetPort: 9091
+  selector:
+    app: "kim_ids_connector_app3"
+  type: "NodePort"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  labels:
+    app: "kim_ids_connector_app3"
+  name: "kim-ids-connector-app3-ecc-to-rest-svc"
+  namespace: "kim-poc-02"
+spec:
+  ports:
+  - name: "http-9096"
+    port: 9096
+    protocol: "TCP"
+    targetPort: 9096
+  selector:
+    app: "kim_ids_connector_app3"
+  type: "ClusterIP"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  labels:
+    app: "kim_ids_connector_app3"
+  name: "kim-ids-connector-app3-kim-rest-svc"
+  namespace: "kim-poc-02"
+spec:
+  ports:
+  - name: "http-9099"
+    nodePort: 30996
+    port: 9099
+    protocol: "TCP"
+    targetPort: 9099
+  selector:
+    app: "kim_ids_connector_app3"
+  type: "NodePort"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  labels:
+    app: "kim_ids_connector_app3"
+  name: "kim-ids-connector-app3-int-to-rest-svc"
+  namespace: "kim-poc-02"
+spec:
+  ports:
+  - name: "http-9092"
+    port: 9092
+    protocol: "TCP"
+    targetPort: 9092
+  selector:
+    app: "kim_ids_connector_app3"
+  type: "ClusterIP"

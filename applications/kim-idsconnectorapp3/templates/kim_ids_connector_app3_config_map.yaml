@@ -1,0 +1,13 @@
+---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "serviceftcinternalresttoecc12-ballerina-conf-config-map"
+  namespace: "kim-poc-02"
+data:
+  ballerina.conf: "[b7a]\n[b7a.log] # ‘DEBUG’, ‘ERROR’, ‘INFO’, ‘TRACE’, ‘WARN’, ‘\
+    OFF’, and ‘ALL’ \nlevel=\"DEBUG\" \n\n[b7a.observability]\n[b7a.observability.metrics]\
+    \ # Flag to enable Metrics, in Rancher taken over by Istio Metrics\nenabled=false\n\
+    \n[b7a.observability.tracing] # Flag to enable Tracing\nenabled=false\n\n# https://github.com/ballerina-platform/ballerina-lang/blob/master/bvm/ballerina-logging/src/main/java/org/ballerinalang/logging/BLogManager.java\n\
+    # https://ballerina.io/learn/api-docs/ballerina/http/index.html#records also files\
+    \ possible\n[b7a.http.accesslog]\nconsole=false\n\n[b7a.http.tracelog]\nconsole=false"
