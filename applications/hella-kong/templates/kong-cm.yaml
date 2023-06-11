@@ -18,9 +18,9 @@ data:
               - /diagnosis-test
             strip_path: true
 
-      - host: "hella-orion"
-        name: "hella-orion-kim"
-        port: 1026
+      - host: "kim-ids-connector-app3-int-to-rest-svc.kim-poc-02.svc.cluster.local"
+        name: "kim-ids-connector-app3-kim"
+        port: 9092
         protocol: http
         routes:
           - name: hella-orion-kim

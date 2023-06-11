@@ -166,7 +166,7 @@ data:
         "bundled_assets": [ ],
         "meta_info": {
             "method": "GET",
-            "permissionresource": "ngsi-ld/v1/entities/urn:ngsi-ld:Analytics:ID999Total"
+            "permissionresource": "ids-input/ngsi-ld/v1/entities/urn:ngsi-ld:Analytics:ID999Total"
         }
       }
       resource_result = col_resource.insert_one(resource_insert)
@@ -290,7 +290,7 @@ data:
                     {
                         "default": True,
                         "unitOfMeasure": "",
-                        "value": "ngsi-ld/v1/entities/urn:ngsi-ld:Analytics:ID999Total",
+                        "value": "ids-input/ngsi-ld/v1/entities/urn:ngsi-ld:Analytics:ID999Total",
                         "valueFrom": "",
                         "valueTo": ""
                     }
