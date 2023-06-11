@@ -92,6 +92,7 @@ Argo-CD will deploy quite a number of Helm-Charts applications to deliver 2 use 
 
 The following gives a description of the steps to be performed for the data space use cases in the demonstrator.
 
+Here the link to a short 2min intro video in German language: [LinkToShortGermanVideo](https://fiware-ai-marketplace.github.io/ai-marketplace/ShortGerman/)
 
 
 
@@ -394,16 +395,4 @@ or an application for performing the necessary steps.
 4. After receing a permit evaluation, the NGSI-LD request will be forwarded to the KI-Marktplatz own IDS Connector.
 5. The NGSI-LD request will be send to the provider IDS Connector. 
    The Context Broker response with the diagnosis data is returned to the Cardealer Operator.
-   
-There is an example script [get_data_m2m_i4trust.py](./scripts/get_data_m2m_i4trust.py) which automatizes the process of obtaining an access token 
-and retrieving diagnosis data at the PEP/PDP Kong instance of the service provider. This should be run on behalf of the service consumer 
-organisation after acquisition of the access rights. It will only work with the FIWARE Kubernetes cluster, but shows how 
-to perform the necessary operations in a script or application.  
-Usage:
-```shell
-python scripts/get_data_m2m_i4trust.py <NAMESPACE> <PARTY> <OPERATION>
-```
-where `<NAMESPACE>` denotes the mandatory parameter of the deployed namespace (e.g., `kim-poc-*`), 
-`<PARTY>` is the optional parameter of the consuming party (default: `autosupplier`, other options: `cardealer`) and 
-`<OPERATION>` is the optional parameter of the type of the operation (default: `GET`, other options: `POST`).
 
