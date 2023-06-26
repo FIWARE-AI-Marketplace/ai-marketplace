@@ -94,7 +94,7 @@ The following gives a description of the steps to be performed for the data spac
 
 Demo Videos:
 - Short intro video in German language: [LinkToShortGermanVideo](https://fiware-ai-marketplace.github.io/ai-marketplace/ShortGerman/)
-- TechScreencast video in German language: [LinkToShortGermanVideo](https://fiware-ai-marketplace.github.io/ai-marketplace/TechScreencastGerman/)
+- TechScreencast video in German language: [LinkToTechScreencastGermanVideo](https://fiware-ai-marketplace.github.io/ai-marketplace/TechScreencastGerman/)
 
 
 ### i4Trust use case
