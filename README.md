@@ -92,8 +92,9 @@ Argo-CD will deploy quite a number of Helm-Charts applications to deliver 2 use 
 
 The following gives a description of the steps to be performed for the data space use cases in the demonstrator.
 
-Here the link to a short 2min intro video in German language: [LinkToShortGermanVideo](https://fiware-ai-marketplace.github.io/ai-marketplace/ShortGerman/)
-
+Demo Videos:
+- Short intro video in German language: [LinkToShortGermanVideo](https://fiware-ai-marketplace.github.io/ai-marketplace/ShortGerman/)
+- TechScreencast video in German language: [LinkToShortGermanVideo](https://fiware-ai-marketplace.github.io/ai-marketplace/TechScreencastGerman/)
 
 
 ### i4Trust use case
@@ -271,9 +272,9 @@ organisation after acquisition of the access rights. It will only work with the 
 to perform the necessary operations in a script or application.  
 Usage:
 ```shell
-python scripts/get_data_m2m_i4trust.py <NAMESPACE> <PARTY> <OPERATION>
+python3 get_data_m2m_i4trust.py <NAMESPACE> <PARTY> <OPERATION>
 ```
-where `<NAMESPACE>` denotes the mandatory parameter of the deployed namespace (e.g., `kim-poc-*`), 
+where `<NAMESPACE>` denotes the mandatory parameter of the deployed namespace (`kim-poc-02`), 
 `<PARTY>` is the optional parameter of the consuming party (default: `autosupplier`, other options: `cardealer`) and 
 `<OPERATION>` is the optional parameter of the type of the operation (default: `GET`, other options: `POST`).
 
@@ -396,3 +397,9 @@ or an application for performing the necessary steps.
 5. The NGSI-LD request will be send to the provider IDS Connector. 
    The Context Broker response with the diagnosis data is returned to the Cardealer Operator.
 
+There is an example script [get_data_m2m_ids.py](./scripts/get_data_m2m_ids.py) which automatizes the process of obtaining an access token from the marketplace Keyrock IDP and retrieving (GET only) diagnosis data via the PEP/PDP Kong instance of the marketplace and via the IDS data space and its consumer and provider connectors from the service provider. The script will run on behalf of the user operatorl@autosupplier.com after acquisition of the access rights. It will only work with the FIWARE Kubernetes cluster, but shows how to perform the necessary operations in a script or application.  
+Usage:
+```shell
+python3 get_data_m2m_ids.py <NAMESPACE>
+```
+where `<NAMESPACE>` denotes the mandatory parameter of the deployed namespace (`kim-poc-02`)
